@@ -20,6 +20,13 @@ use Sylius\Bundle\FlowBundle\Storage\SessionFlowsBag;
  */
 class SessionFlowsBagTest extends \PHPUnit_Framework_TestCase
 {
+	public function setUp()
+	{
+		if (!class_exists('Symfony\Component\HttpFoundation\Session\SessionInterface')) {
+			$this->markTestSkipped("Skipping SessionStorage test due to missing classes from newer Symfony versions");
+		}
+	}
+
     /**
      * @test
      */

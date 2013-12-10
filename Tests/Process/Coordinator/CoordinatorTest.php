@@ -65,7 +65,7 @@ class CoordinatorTest extends \PHPUnit_Framework_TestCase
         $response = $this->coordinator->start('scenarioOne');
 
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals('http://someurl.dev/step/scenarioOne/firstStepName', $response->getTargetUrl());
+        $this->assertEquals('http://someurl.dev/step/scenarioOne/firstStepName', $response->headers->get('Location'));
     }
 
     /**
@@ -101,7 +101,7 @@ class CoordinatorTest extends \PHPUnit_Framework_TestCase
         $response = $this->coordinator->start('scenarioOne');
 
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals('http://someurl.dev/my-super-route/firstStepName', $response->getTargetUrl());
+        $this->assertEquals('http://someurl.dev/my-super-route/firstStepName', $response->headers->get('Location'));
     }
 
     /**
@@ -319,7 +319,7 @@ class CoordinatorTest extends \PHPUnit_Framework_TestCase
         $response = $this->coordinator->forward('scenarioOne', 'someStepName');
 
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals('http://someurl.dev/step/scenarioOne/nextStepName', $response->getTargetUrl());
+        $this->assertEquals('http://someurl.dev/step/scenarioOne/nextStepName', $response->headers->get('Location'));
     }
 
     /**
@@ -358,7 +358,7 @@ class CoordinatorTest extends \PHPUnit_Framework_TestCase
         $response = $this->coordinator->forward('scenarioOne', 'goToNextStep');
 
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals('http://someurl.dev/step/scenarioOne/nextStepName', $response->getTargetUrl());
+        $this->assertEquals('http://someurl.dev/step/scenarioOne/nextStepName', $response->headers->get('Location'));
     }
 
     /**
@@ -395,7 +395,7 @@ class CoordinatorTest extends \PHPUnit_Framework_TestCase
         $response = $this->coordinator->forward('scenarioOne', 'someStepName');
 
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals('http://localhost/processRedirect', $response->getTargetUrl());
+        $this->assertEquals('http://localhost/processRedirect', $response->headers->get('Location'));
     }
 
     private function createCoordinator($router, $processBuilder, $processContext)

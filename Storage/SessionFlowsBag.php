@@ -9,33 +9,45 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Bundle\FlowBundle\Storage;
-
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
-
-/**
- * Separate session bag to store flows data.
- *
- * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
- */
-class SessionFlowsBag extends NamespacedAttributeBag
+namespace Symfony\Component\HttpFoundation\Session\Attribute
 {
-    const STORAGE_KEY = 'sylius.flow.bag';
-    const NAME        = 'sylius.flow.bag';
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct(self::STORAGE_KEY);
+    if (!class_exists('Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag')) {
+        class NamespacedAttributeBag
+        {
+            // empty
+        }
     }
 
+}
+
+namespace Sylius\Bundle\FlowBundle\Storage
+{
+    use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+
     /**
-     * {@inheritdoc}
+     * Separate session bag to store flows data.
+     *
+     * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
      */
-    public function getName()
+    class SessionFlowsBag extends NamespacedAttributeBag
     {
-        return self::NAME;
+        const STORAGE_KEY = 'sylius.flow.bag';
+        const NAME        = 'sylius.flow.bag';
+
+        /**
+         * Constructor.
+         */
+        public function __construct()
+        {
+            parent::__construct(self::STORAGE_KEY);
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function getName()
+        {
+            return self::NAME;
+        }
     }
 }
